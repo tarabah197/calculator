@@ -9,8 +9,11 @@
     --contrast-color: #2c303d;
     --text-color: #eef0ff;
     --accent-color: #a8c7fa;
-    --accent-color-2: #faa8b6;
+    --accent-color-2: #fabca8;
+    --hover-operator-btn: #c4d7f6;
+    --hover-control-btn: #f8dcd2;
     --hover-color: #3a3f50;
+    --border-active: #393a3f;
 }
 
 body {
@@ -36,8 +39,10 @@ body {
 
 .display-container {
     width: 100%;
-    height: 5vh;
+    height: 10vh;
     border: 1px solid var(--contrast-color);
+    border-radius: 20px;
+    margin-bottom: 2vh;
 }
 
 .btn-container {
@@ -54,7 +59,7 @@ body {
     display: flex;
 }
 
-.control-container > .clear {
+.control-container > .btn {
     background-color: var(--accent-color-2);
     color: var(--contrast-color);
     font-size: medium;
@@ -70,7 +75,14 @@ body {
     width: 65%;
 }
 
-.operators-container > :nth-child(1) { 
+.operators-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.operators-container > .btn { 
     background-color: var(--accent-color);
     color: var(--contrast-color);
     font-size: medium;
@@ -87,6 +99,23 @@ body {
     border-radius: 100px;
     margin: 2px;
 }
+
+.btn:hover {
+    background-color: var(--hover-color);
+}
+
+.btn:active {
+    box-shadow: 0 0 0 1px #5f6368;
+}
+
+.control-container > .btn:hover {
+    background-color: var(--hover-control-btn);
+}
+
+.operators-container > .btn:hover{
+    background-color: var(--hover-operator-btn);
+}
+
 
 
 

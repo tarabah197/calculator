@@ -5,6 +5,7 @@
 }
 
 :root {
+    --body-bg: #e6e5e5;
     --background-color: #101218;
     --contrast-color: #2c303d;
     --text-color: #eef0ff;
@@ -21,33 +22,60 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: var(--background-color); 
+    background-color: var(--body-bg); 
     height: 100vh;
 }
 
 .container {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     flex-direction: column;
     background-color: var(--background-color); 
     color: var(--text-color);
-    border-radius: 20px;
-    height: 70vh;
-    width: 60vh;
+    border-radius: 40px;
+    box-shadow: 6px 6px 16px 2px #5f6368;
+    border: 2px solid;
+    height: 80vh;
+    width: 70vh;
+}
+
+h1 {
+    margin: 10%;
 }
 
 .display-container {
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 60vh;
     height: 10vh;
-    border: 1px solid var(--contrast-color);
+    border: 1px solid #303134;
     border-radius: 20px;
     margin-bottom: 2vh;
 }
 
+.display-container:hover{
+    background-color: #303134;
+}
+
+.display {
+    margin-right: 3%;
+}
+
+.current {
+    font-size: 30px;
+}
+
+.previous {
+    font-size: 18px;
+    color: #afb2bd;
+}
+
+
 .btn-container {
     display: flex;
-    width: 100%;
+    width: 60vh;
 }
 
 .btns {

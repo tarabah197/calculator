@@ -1,23 +1,17 @@
-const operatorContainer = document.querySelector('#operators');
-const numbersContainer = document.querySelector('#numbers');
+const btnContainer = document.querySelector('.btn-container');
+const numbers = ['0','1','2','3','4','5','6','7','8','9','.'];
+const operators = ['+','-','/','*'];
 let getNumber = '';
-let getOperator = '';
 
 
-numbersContainer.onclick = function (event) {
+btnContainer.onclick = function (event) {
     let target = event.target;
 
-    if (target.tagName != 'DIV') return;
-
-    return getNumber = target.textContent;
-};
-
-operatorContainer.onclick = function (event) {
-    let target = event.target;
-
-    if (target.tagName != 'DIV') return;
-
-    return getOperator = target.textContent;
+    if (target.tagName != 'BUTTON') return;
+    getNumber = target.textContent;
+    if (numbers.includes(getNumber)) 
+    return console.log("true");
+    return console.log(getNumber);
 };
 
 

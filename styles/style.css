@@ -46,10 +46,11 @@ h1 {
 
 .display-container {
     display: flex;
-    align-items: center;
+    align-items: end;
     justify-content: flex-end;
     width: 60vh;
-    height: 10vh;
+    height: 12vh;
+    padding: 0 0 5px 0;
     border: 1px solid #303134;
     border-radius: 20px;
     margin-bottom: 2vh;
@@ -60,15 +61,19 @@ h1 {
 }
 
 .display {
+    word-wrap: break-word;
+    word-break: break-all;
+    text-align: right;
     margin-right: 3%;
 }
 
 .current {
-    font-size: 30px;
+    font-size: 2rem;
+    line-height: 30px;
 }
 
 .previous {
-    font-size: 18px;
+    font-size: 1rem;
     color: #afb2bd;
 }
 
@@ -87,7 +92,7 @@ h1 {
     display: flex;
 }
 
-.control-container > .btn {
+.control-container > .bg-red {
     background-color: var(--accent-color-2);
     color: var(--contrast-color);
     font-size: medium;
@@ -110,7 +115,7 @@ h1 {
     width: 100%;
 }
 
-.operators-container > .btn { 
+.operators-container > .bg-blue { 
     background-color: var(--accent-color);
     color: var(--contrast-color);
     font-size: medium;

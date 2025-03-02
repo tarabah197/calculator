@@ -95,7 +95,7 @@ h1 {
 .control-container > .bg-red {
     background-color: var(--accent-color-2);
     color: var(--contrast-color);
-    font-size: medium;
+    font-size: 25px;
 }
 
 
@@ -118,7 +118,7 @@ h1 {
 .operators-container > .bg-blue { 
     background-color: var(--accent-color);
     color: var(--contrast-color);
-    font-size: medium;
+    font-size: 25px;
 }
 
 

@@ -17,6 +17,7 @@ function clearAll() {
     b = '';
     operator = '';
     resetA = false;
+    continueOperate = false;
 }
 
 btnContainer.onclick = function (event) {
@@ -34,18 +35,27 @@ btnContainer.onclick = function (event) {
 
     // get numbers and operator
     if (numbers.includes(key)) {
-        if (resetA && continueOperate){
-            if (key === '.' && a.includes('.')) return;
-            b+=key;
-        } else if(resetA) {
-            a = key;
+        if (resetA && operator !== ''){
+            if (key === '.' && b.includes('.')) return;
+            b += key === '.' ? '0.' : key;
+        } else if (resetA) {
+            a = key === '.' ? '0.' : key;
             resetA = false;
-        }else if (operator === '') {
+            continueOperate = false;
+        } else if (!operator) {
             if (key === '.' && a.includes('.')) return;
-            a+=key;
-        }else {
-            if (key === '.' && a.includes('.')) return;
-            b+=key;
+            if (key === '.' && a === '') {
+                a = '0.';
+            } else {
+                a += key;
+            }
+        } else {
+            if (key === '.' && b.includes('.')) return;
+            if (key === '.' && b === '') {
+                b = '0.';
+            } else {
+                b += key;
+            }
         }
     }
 

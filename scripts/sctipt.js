@@ -8,9 +8,9 @@ let b = '';
 let operator = '';
 let resetA = false;
 let continueOperate = false;
+const MAX_LENGTH = 15;
 
 function clearAll() {
-    updateDisplay();
     displayCurrentValue.textContent = 0;
     displayPreviousValue.textContent = '';
     a = '';
@@ -33,43 +33,67 @@ btnContainer.onclick = function (event) {
     // calculate
     if (key === '=') return calculate();
 
-    // get numbers and operator
+    // toggle sign
+    // if (key === '-') return toggleMinus();
+
     if (numbers.includes(key)) {
-        if (resetA && operator !== ''){
-            if (key === '.' && b.includes('.')) return;
-            b += key === '.' ? '0.' : key;
-        } else if (resetA) {
-            a = key === '.' ? '0.' : key;
-            resetA = false;
-            continueOperate = false;
-        } else if (!operator) {
-            if (key === '.' && a.includes('.')) return;
-            if (key === '.' && a === '') {
-                a = '0.';
-            } else {
-                a += key;
-            }
-        } else {
-            if (key === '.' && b.includes('.')) return;
-            if (key === '.' && b === '') {
-                b = '0.';
-            } else {
-                b += key;
-            }
-        }
+        numberInput(key);
     }
 
-    if (operators.includes(key)){
-        if (a === '' || a === '.') return;
-        if (b !== '') {
-            calculate();
-        }
-        operator = key;
-        continueOperate = true;
+    if (operators.includes(key)) {
+        operatorInput(key);
     }
 
     updateDisplay();
 };
+
+// function toggleMinus(){
+//     if (operator === '') {
+//         if (a === '') {
+//             a = '-';
+//         } else if (operator === '' && a === '-'){
+//             clearAll();
+//         } else {
+//             a = (-(parseFloat(a)).toString);            
+//         }
+//     } else {
+//         if (b === '' && operator === '') {
+//             b = '-';
+//         } else {
+//             b = (-parseFloat(b)).toString();
+//         }
+//     }
+//     updateDisplay();
+// }
+
+function numberInput(key) {
+    if (resetA && operator !== '') {
+        if (b.length >= MAX_LENGTH) return;
+        b = key === '.' && b === '' ? '0.' : b + key;
+    } else if (resetA) {
+        a = key === '.' ? '0.' : key;
+        resetA = false;
+        continueOperate = false;
+    } else if (!operator) {
+        if (a.length >= MAX_LENGTH) return;
+        if (key === '.' && a.includes('.')) return;
+        a = key === '.' && a === '' ? '0.' : a + key;
+    } else {
+        if (b.length >= MAX_LENGTH) return;
+        if (key === '.' && b.includes('.')) return;
+        b = key === '.' && b === '' ? '0.' : b + key;
+    }
+}
+
+function operatorInput(key) {
+    if (a === '' || a === '.') return;
+    if (b !== '') {
+        calculate();
+    }
+
+    operator = key;
+    continueOperate = true;
+}
 
 function calculate() {
     if (a === '' || b === '' || operator === '') return;
@@ -94,7 +118,7 @@ function calculate() {
 
         displayPreviousValue.textContent = a !== '' && operator !== '' && b !== '' ? `${a} ${operator} ${b} =` : '';
 
-        a = result.toString();
+        a = result !== 'Error' ? result = parseFloat(result.toFixed(10)) : result.toString();
         b = '';
         operator = '';
         resetA = true;
@@ -104,5 +128,5 @@ function calculate() {
 }
 
 function updateDisplay() {
-    displayCurrentValue.textContent = `${a} ${operator} ${b}` || '0';
+    displayCurrentValue.textContent = `${a} ${operator} ${b}`.trim() || '0';
 }

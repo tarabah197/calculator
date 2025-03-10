@@ -20,6 +20,19 @@ function clearAll() {
     continueOperate = false;
 }
 
+function clear() {
+    if (a === 'Error') return clearAll();
+    if (b !== '') {
+        b = b.slice(0, -1);
+    } else if (operator !== '') {
+        operator = '';
+    } else if (a !== ''){
+        a = a.slice(0, -1);
+    }
+
+    updateDisplay();
+}
+
 btnContainer.onclick = function (event) {
     let target = event.target;
 
@@ -28,13 +41,16 @@ btnContainer.onclick = function (event) {
     const key = target.textContent;
 
     // clear display
-    if (key == 'AC') return clearAll();
+    if (key === 'AC') return clearAll();
+
+    // clear one sign
+    if (key === '◄─') return clear();
 
     // calculate
     if (key === '=') return calculate();
 
     // toggle sign
-    // if (key === '-') return toggleMinus();
+    if (key === '-') return toggleMinus();
 
     if (numbers.includes(key)) {
         numberInput(key);
@@ -47,24 +63,17 @@ btnContainer.onclick = function (event) {
     updateDisplay();
 };
 
-// function toggleMinus(){
-//     if (operator === '') {
-//         if (a === '') {
-//             a = '-';
-//         } else if (operator === '' && a === '-'){
-//             clearAll();
-//         } else {
-//             a = (-(parseFloat(a)).toString);            
-//         }
-//     } else {
-//         if (b === '' && operator === '') {
-//             b = '-';
-//         } else {
-//             b = (-parseFloat(b)).toString();
-//         }
-//     }
-//     updateDisplay();
-// }
+function toggleMinus() {
+    if (a === '') {
+        a = '-';
+    } else if (a === '-') {
+        clearAll();
+    } else if (operator !== '' && a === 'Error'){
+        operator = operator === '-' ? '+' : '-';
+    }
+
+    updateDisplay();
+}
 
 function numberInput(key) {
     if (resetA && operator !== '') {
@@ -77,7 +86,11 @@ function numberInput(key) {
     } else if (!operator) {
         if (a.length >= MAX_LENGTH) return;
         if (key === '.' && a.includes('.')) return;
-        a = key === '.' && a === '' ? '0.' : a + key;
+        if (a.includes('-')) {
+            a = key === '.' ? '-0.' : a + key;    
+        } else {
+            a = key === '.' && a === '' ? '0.' : a + key;
+        }
     } else {
         if (b.length >= MAX_LENGTH) return;
         if (key === '.' && b.includes('.')) return;
@@ -86,7 +99,7 @@ function numberInput(key) {
 }
 
 function operatorInput(key) {
-    if (a === '' || a === '.') return;
+    if (a === '' || a === '.' || a === 'Error') return;
     if (b !== '') {
         calculate();
     }
@@ -118,7 +131,7 @@ function calculate() {
 
         displayPreviousValue.textContent = a !== '' && operator !== '' && b !== '' ? `${a} ${operator} ${b} =` : '';
 
-        a = result !== 'Error' ? result = parseFloat(result.toFixed(10)) : result.toString();
+        a = result !== 'Error' ? result = parseFloat(result.toFixed(15)).toString() : result.toString();
         b = '';
         operator = '';
         resetA = true;

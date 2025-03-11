@@ -44,13 +44,16 @@ btnContainer.onclick = function (event) {
     if (key === 'AC') return clearAll();
 
     // clear one sign
-    if (key === '◄─') return clear();
+    if (key === "\n                        backspace\n                    ") return clear();
 
     // calculate
     if (key === '=') return calculate();
 
     // toggle sign
     if (key === '-') return toggleMinus();
+
+    // manipulation with percents
+    if (key === '%') return toPercent();
 
     if (numbers.includes(key)) {
         numberInput(key);
@@ -63,15 +66,28 @@ btnContainer.onclick = function (event) {
     updateDisplay();
 };
 
-function toggleMinus() {
-    if (a === '') {
-        a = '-';
-    } else if (a === '-') {
-        clearAll();
-    } else if (operator !== '' && a === 'Error'){
-        operator = operator === '-' ? '+' : '-';
+function toPercent() {
+    if (operator === '' && a !== '') {
+        a = ((parseFloat(a) / 100) + '%').toString();
+    } else if (operator !== '' && b !== '') {
+        b = ((parseFloat(a) * parseFloat(b) / 100) + '%').toString();
     }
+    updateDisplay();
+}
 
+function toggleMinus() {
+    if (a === '' && operator === '') {
+        a = '-';
+    } else if (a === '-' && operator === '') {
+        return;
+    } else if (operator === '' || operator === '+' && a !== '') {
+        operator = '-';
+    } else if (operator !== '' && b === '') {
+        if (operator === '*' || operator === '÷') {
+            b = '-';
+        }
+    } 
+    
     updateDisplay();
 }
 
@@ -109,7 +125,7 @@ function operatorInput(key) {
 }
 
 function calculate() {
-    if (a === '' || b === '' || operator === '') return;
+    if (a === '' || b === '' || operator === '' || b === '-') return;
     let num1 = parseFloat(a);
     let num2 = parseFloat(b);
     let result = 0;

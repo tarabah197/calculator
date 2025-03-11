@@ -149,5 +149,9 @@ h1 {
     background-color: var(--hover-operator-btn);
 }
 
+.material-symbols-outlined {
+  padding: 5px;
+}
+
 
 

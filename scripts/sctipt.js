@@ -66,6 +66,31 @@ btnContainer.onclick = function (event) {
     updateDisplay();
 };
 
+document.addEventListener('keydown', function(event) {
+    
+    const key = event.key;
+
+    if (key === 'Delete') return clearAll();
+
+    if (key === 'Backspace') return clear();
+
+    if (key === 'Enter') return calculate();
+
+    if (key === '-') return toggleMinus();
+
+    if (key === '%') return toPercent();
+
+    if (numbers.includes(key)) {
+        numberInput(key);
+    }
+    
+    if (operators.includes(key) || key === '/' || key === ':') {
+        operatorInput(key === '/' || key === ':' ? '÷' : key);
+    }
+
+    updateDisplay();
+   });
+
 function toPercent() {
     if (operator === '' && a !== '') {
         a = ((parseFloat(a) / 100) + '%').toString();
